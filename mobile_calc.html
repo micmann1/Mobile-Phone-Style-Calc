@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="EN_US">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta copyright="GPL v3.0" author_email="micmann1@proton.me" />
+    <title>Mobile Phone Style Calculator</title>
+    <style type="text/css">
+        html {
+            overflow-y:scroll;
+        }
+
+        html,
+        h1,
+        canvas,
+        table {
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        h1 {
+            color: rgb(64, 64, 64);
+            font-size:150%;
+            text-decoration: underline;
+        }
+
+        #idbtndiv td {
+            width: 60px;
+        }
+
+        #idbtndiv button {
+            border: none;
+            border-radius: 28px;
+            font-family: sans-serif;
+            font-weight: bold;
+            font-size: 150%;
+            height: 40px;
+            width: 56px;
+        }
+
+        #idbtndiv button:hover,
+        button:active {
+            border: none;
+        }
+
+        #btn_invequal {
+            height: 56px;
+            border-radius: 20px;
+        }
+
+        #idbtndiv #btn_sin_asin,
+        #idbtndiv #btn_cos_acos,
+        #idbtndiv #btn_tan_atan,
+        #idbtndiv #btn_log_10Px
+         {
+            font-size: 110%;
+        }
+
+        #idbtndiv #btn_invequal {
+            font-size: 20px;
+            height: 30px;
+            width: 100%;
+            background-color: blue;
+        }
+
+        #idhist {
+            display: flex;
+            margin: 0 auto;
+            padding: 0;
+            text-align: center;
+            width: 400px;
+        }
+
+        #idhist button {
+            display: flex;
+            vertical-align: top;
+        }
+
+        #btn_hist {
+            align-items: center;
+            border-radius: 12.5px;
+            color: blue;
+            display: flex;
+            font-family: serif;
+            font-size: 140%;
+            font-weight: bold;
+            height: 25px;
+            justify-content: center;
+            width: 25px;
+        }
+
+        #idbtndiv td.clsmembtn p {
+            color: olivedrab;
+            cursor: pointer;
+            font-size: 120%;
+            font-weight: bold;
+            margin: 0;
+            padding: 0;
+            text-align: left;
+            width: 30px;
+        }
+
+        #iddsply,
+        #iddsplyR {
+            margin-right: 30px
+        }
+
+        #iddsplyR {
+            display: inline-block;
+            width: 324px;
+            font-family: sans-serif;
+            height: 38px;
+        }
+
+        #iddsplyRp {
+            color: green;
+            font-family:monospace;
+            font-size: 38px;
+            line-height:125%;
+            font-weight: bold;
+            height: 45px;
+            margin: 0;
+            padding: 0;
+            text-align: right;
+            overflow: visible;
+            white-space: nowrap;
+        }
+
+        #idbtndiv td button {
+            background-color: lightblue;
+        }
+
+        #idbtndiv td button.clsc1 {
+            background-color: lightgray;
+        }
+
+        #idbtndiv td button.clsequal {
+            background-color: darkgreen;
+            color: white;
+        }
+
+        #idbtndiv td #btn_clearall {
+            background-color: white;
+            color: black;
+            border: 3px solid orange;
+        }
+
+        #idhistdiv {
+            display: block;
+            width: 340px;
+            height: 0;
+            text-align: right;
+            background-color: rgba(248, 248, 248, 0.6);
+            border-bottom-left-radius: 1rem;
+            border-bottom-right-radius: 1rem;
+            overflow-y: scroll;
+        }
+
+        #idhistdiv p {
+            margin: 0 10px 0 0;
+            padding: 0;
+            font-family: sans-serif;
+            font-size: 120%;
+            line-height: 80%;
+            cursor: pointer;
+        }
+
+        #idhistdiv p.clsexpr {
+            font-size: 28px;
+        }
+
+        #idhistdiv p.clsrslt {
+            font-size: 42px;
+            /* font-weight: bold; */
+        }
+
+        #idhist div.clsexpanded {
+            height: 15rem;
+            transition: height 0.6s ease-in-out;
+        }
+
+        #idhist div.clscollapsed {
+            height: 0;
+            transition: height 0.6s ease-in-out;
+        }
+
+        #idbtndiv a#idtheme, #idbtndiv a#idclearhist {
+            color: black;
+            display: block;
+            text-align: left;
+            font-weight: bold;
+            cursor: pointer
+        }
+
+        #idbtndiv button.clsmem {
+            border-radius:none;
+            width:40px;
+            font-size:14px;
+        }
+
+        #idhistdiv p {
+            word-wrap:break-word;
+        }
+
+        #idsvgback {
+            transform:scale(0.52);
+        }
+    </style>
+    <style>
+        /*styleSheet[1]*/
+        body {
+            background-color: black;
+        }
+
+        h1 {
+            color: white;
+        }
+
+        #idbtndiv td button {
+            background-color: blue;
+            color: white;
+        }
+
+        #idbtndiv td button.clsc1 {
+            background-color: rgb(32, 32, 32);
+        }
+
+        #idbtndiv td button.clsequal {
+            background-color: lightgreen;
+            color: black;
+        }
+
+        #idbtndiv td #btn_invequal {
+            background-color: lightblue;
+        }
+
+        #iddsplyRp {
+            color: lightgreen;
+        }
+        #idbtndiv a#idtheme, #idbtndiv a#idclearhist {
+            color: white;
+        }
+        path {
+            stroke: white;
+            fill: white;
+        }
+    </style>
+    <script>
+
+    </script>
+    <script src="History.js"></script>
+    <script src="MpcEA.js"></script>
+    <script src="Misc Funcs.js"></script>
+    <script src="CalcDisplay.js"></script>
+</head>
+
+<body>
+    <h1 style="margin-right:30px">Mobile Phone Style Calculator</h1>
+    <div id="idhist">
+        <button type="button" id="btn_hist">H</button>
+        <div id="idhistdiv">
+        </div>
+        </tr>
+    </div>
+    <canvas id="iddsply" width="324" height="50"></canvas><br />
+    <div id="iddsplyR"><p id="iddsplyRp"></p></div>
+    <div id="idbtndiv">
+        <table id="idtblfunction" cellspacing="6px" style="padding-top:0px">
+            <tbody>
+                <tr>
+                    <td><button id="btn_sqrt_sqr" type="button">⎷</button></td>
+                    <td><button id="btn_PI" type="button">π</button></td>
+                    <td><button id="btn_pow" type="button">^</button></td>
+                    <td><button id="btn_fact" type="button">!</button></td>
+                    <td class="clsmembtn">
+                        <button id="idms" type="button" class="clsmem">MS</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><button id="btn_inv" type="button">Inv</button></td>
+                    <td><button id="btn_E" type="button">e</button></td>
+                    <td><button id="btn_ln_exp" type="button">ln</button></td>
+                    <td><button id="btn_log_10Px" type="button">log</button></td>
+                    <td class="clsmembtn">
+                        <button id="idmr" type="button" class="clsmem">MR</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><button id="btn_degrad" type="button">Deg</button></td>
+                    <td><button id="btn_sin_asin" type="button">sin</button></td>
+                    <td><button id="btn_cos_acos" type="button">cos</button></td>
+                    <td><button id="btn_tan_atan" type="button">tan</button></td>
+                    <td class="clsmembtn">
+                        <button id="idmplus" type="button" class="clsmem">M+</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><button id="btn_clearall" type="button">AC</button></td>
+                    <td><button id="btn_parens" type="button">()</button></td>
+                    <td><button id="btn_pct" type="button">%</button></td>
+                    <td><button id="btn_div" type="button">÷</button></td>
+                    <td class="clsmembtn">
+                        <button id="idmminus" type="button" class="clsmem"><span style="display:inline;line-height:5px">M᠆</span></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><button id="btn_digit7" type="button" class="clsc1">7</button></td>
+                    <td><button id="btn_digit8" type="button" class="clsc1">8</button></td>
+                    <td><button id="btn_digit9" type="button" class="clsc1">9</button></td>
+                    <td><button id="btn_mul" type="button">×</button></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><button id="btn_digit4" type="button" class="clsc1">4</button></td>
+                    <td><button id="btn_digit5" type="button" class="clsc1">5</button></td>
+                    <td><button id="btn_digit6" type="button" class="clsc1">6</button></td>
+                    <td><button id="btn_sub" type="button">−</button></td>
+                    <td class="clsmembtn">
+                        <button id="idmc" type="button" class="clsmem">MC</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><button id="btn_digit1" type="button" class="clsc1">1</button></td>
+                    <td><button id="btn_digit2" type="button" class="clsc1">2</button></td>
+                    <td><button id="btn_digit3" type="button" class="clsc1">3</button></td>
+                    <td><button id="btn_add" type="button">+</button></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><button id="btn_digit0" type="button" class="clsc1">0</button></td>
+                    <td><button id="btn_decsep" type="button" class="clsc1">.</button></td>
+                    <td><button id="btn_bkspc" type="button" class="clsc1" style="display:flex">
+                        <svg xmlns="http://www.w3.org/2000/svg" id="idsvgback" width="54px" height="40px" version="1.1" viewBox="0 0 54 40">
+                            <path d="M18,37.28 h28.8 v-33.84 h-28.8 L0,22 z" fill="none" stroke="black" stroke-width="4" stroke-linejoin="miter"/>
+                            <text x="20" y="31" font-size="28">X</text>
+                        </svg>
+                    </button></td>
+                    <td><button id="btn_equal" type="button" class="clsequal">=</button></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="4"><button id="btn_invequal" type="button" class="clsequal">1 / x</button></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <a id="idtheme">Light Theme</a>
+        <a id="idclearhist">Clear History</a>
+        <a style="visibility:hidden">Filler(HIDDEN)</a>
+    </div>
+</body>
+<script src="main.js"></script>
+</html>
