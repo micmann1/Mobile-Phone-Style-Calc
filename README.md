@@ -2,7 +2,9 @@
 
 <img alt="Calculator Face" src="images/mpsc1.png"></img>
 
-#### Similar to the type of general purpose calculator that you might see that ships with a Google&reg; cellphone/mobile phone. It may look simplistic, but it has a lot of very cool features:
+- This app has no external server dependencies and runs as a standalone app!!
+
+#### Similar to the type of general purpose calculator that you might see that ships with a Google&reg; cellphone/mobile phone. It may look simplistic, but it has a lot of very sophisticated features:
 - Responsive Font Sizing for the expression input display, which is editable and touch scrollable.
 - A standard list of functions available with a bonus *1/x* multiplicative inverse button.
 - The usual memory functions as well as a *History* dropdown area that takes advantage of localStorage to hold expressions and results between uses.
